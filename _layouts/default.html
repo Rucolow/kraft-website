@@ -3,41 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title | default: "KRAFT コミュニティ" }}</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description | default: "Discord Bot と連携したコミュニティダッシュボード" }}{% endif %}">
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS - 最新安定版使用 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Font Awesome - 最新安定版使用 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
-    <!-- カスタムCSS -->
+    <!-- KRAFT カスタムCSS - 複数パス試行 -->
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="/assets/css/main.css">
     
     <!-- ページ固有CSS -->
     {% if page.url contains 'investment' %}
     <link rel="stylesheet" href="{{ '/assets/css/investment.css' | relative_url }}">
     {% endif %}
     
+    <!-- インラインKRAFT基本スタイル - フォールバック用 -->
+    <style>
+        /* KRAFT 緊急フォールバックスタイル */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        
+        .main-content {
+            min-height: calc(100vh - 160px);
+            padding-top: 20px;
+        }
+        
+        /* ナビゲーション強制表示 */
+        .navbar-brand {
+            font-size: 1.5rem !important;
+            font-weight: bold !important;
+        }
+        
+        .nav-link {
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255,255,255,0.1) !important;
+            border-radius: 6px !important;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1) !important;
+            border-radius: 6px !important;
+        }
+        
+        /* カード強化スタイル */
+        .card {
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+        }
+        
+        /* ボタン強化 */
+        .btn {
+            border-radius: 8px !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+            border: none !important;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3 0%, #004085 100%) !important;
+            transform: translateY(-1px) !important;
+        }
+        
+        /* ヒーローセクション */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+        }
+        
+        /* 統計カード */
+        .stat-icon {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                margin-top: 1rem;
+            }
+            
+            .nav-link {
+                padding: 0.75rem 1rem;
+            }
+            
+            .display-4 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* フェードインアニメーション */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 強制表示クラス */
+        .navbar-collapse {
+            display: flex !important;
+        }
+        
+        .navbar-nav {
+            display: flex !important;
+        }
+    </style>
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-    <!-- Chart.js追加 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js" integrity="sha512-A5Gf1/0O3L0sQ8UIAn7LkQdLIFqAOKPNwkI6Rv8Rvz6xXO6++PCu4gwayYJUwIrqJUE3YlZ4Qc8V0M8vOWTI/w==" crossorigin="anonymous"></script>
     
     <!-- Firebase 設定 -->
     <script src="{{ '/assets/js/firebase-config.js' | relative_url }}"></script>
     
-    <!-- Open Graph / Twitter Cards -->
-    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <!-- SEO・Open Graph -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title | default: "KRAFT コミュニティ" }}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description | default: "Discord Bot と連携したコミュニティダッシュボード" }}{% endif %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:image" content="{{ site.url }}/assets/images/kraft-og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@kraft_community">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
 </head>
-<body>
+<body class="fade-in">
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
@@ -48,7 +168,7 @@
             
             <!-- モバイルメニューボタン -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="ナビゲーション切り替え">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -71,7 +191,7 @@
                         </a>
                     </li>
                     
-                    <!-- 投資ページ (新規追加) -->
+                    <!-- 投資ページ -->
                     <li class="nav-item">
                         <a class="nav-link {% if page.url contains 'investment' %}active{% endif %}" 
                            href="{{ '/investment.html' | relative_url }}">
@@ -79,19 +199,35 @@
                             <span class="badge bg-warning text-dark ms-1 small">NEW</span>
                         </a>
                     </li>
+                    
+                    <!-- ガイドページ -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if page.url contains 'guide' %}active{% endif %}" 
+                           href="{{ '/guide.html' | relative_url }}">
+                            <i class="fas fa-book me-1"></i>ガイド
+                        </a>
+                    </li>
                 </ul>
                 
                 <!-- 右側ユーティリティ -->
                 <ul class="navbar-nav">
+                    <!-- 接続ステータス -->
+                    <li class="nav-item">
+                        <span class="navbar-text me-2" id="connection-status">
+                            <i class="fas fa-circle text-success" id="status-icon"></i>
+                            <span id="status-text">接続中...</span>
+                        </span>
+                    </li>
+                    
                     <!-- テーマ切り替えボタン -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-light btn-sm" id="themeToggle" title="テーマ切り替え">
+                        <button class="btn btn-outline-light btn-sm me-2" id="themeToggle" title="テーマ切り替え">
                             <i class="fas fa-moon" id="themeIcon"></i>
                         </button>
                     </li>
                     
                     <!-- Discord リンク -->
-                    <li class="nav-item ms-2">
+                    <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm" 
                            href="https://discord.gg/kraftcommunity" 
                            target="_blank" 
@@ -141,6 +277,11 @@
                             </a>
                         </li>
                         <li class="mb-1">
+                            <a href="{{ '/guide.html' | relative_url }}" class="text-light text-decoration-none">
+                                <i class="fas fa-book me-2"></i>ガイド
+                            </a>
+                        </li>
+                        <li class="mb-1">
                             <a href="https://discord.gg/kraftcommunity" 
                                target="_blank" 
                                rel="noopener noreferrer"
@@ -161,19 +302,19 @@
                         <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
                         システム稼働中
                     </span>
-                    <small class="text-muted">最終更新: {{ site.time | date: "%Y-%m-%d" }}</small>
+                    <small class="text-muted">最終更新: {{ site.time | date: "%Y-%m-%d %H:%M" }}</small>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- 接続ステータス表示 -->
-    <div id="connectionStatus" class="position-fixed bottom-0 end-0 m-3" style="z-index: 1050;">
+    <div id="connectionToast" class="position-fixed bottom-0 end-0 m-3" style="z-index: 1050;">
         <!-- Firebase接続状態がここに表示される -->
     </div>
 
     <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
     <!-- KRAFTDataManager -->
     <script src="{{ '/assets/js/kraft-data-manager.js' | relative_url }}"></script>
@@ -198,7 +339,15 @@
     <!-- ページ読み込み完了イベント -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ナビゲーションのアクティブ状態を更新
+            console.log('🚀 KRAFT ウェブサイト - ページ読み込み完了');
+            
+            // CSS読み込み確認
+            checkCSSLoading();
+            
+            // ナビゲーションの強制表示
+            forceNavbarDisplay();
+            
+            // アクティブナビゲーション更新
             updateActiveNavigation();
             
             // 接続ステータスの初期化
@@ -209,8 +358,42 @@
                 new ThemeManager();
             }
             
-            console.log('KRAFTウェブサイト - ページ読み込み完了');
+            // データマネージャー初期化待機
+            waitForDataManager();
         });
+        
+        /**
+         * CSS読み込み確認
+         */
+        function checkCSSLoading() {
+            const bootstrapCheck = getComputedStyle(document.querySelector('.container')).maxWidth;
+            const fontAwesomeCheck = window.getComputedStyle(document.querySelector('.fas'), ':before').content;
+            
+            console.log('📊 CSS読み込み状況:');
+            console.log('Bootstrap:', bootstrapCheck !== 'none' ? '✅ 正常' : '❌ 未読み込み');
+            console.log('Font Awesome:', fontAwesomeCheck !== 'none' ? '✅ 正常' : '❌ 未読み込み');
+            
+            // CSS未読み込みの場合の代替処理
+            if (bootstrapCheck === 'none') {
+                console.warn('⚠️ Bootstrap CSS 未読み込み - フォールバックスタイル適用');
+                document.body.classList.add('css-fallback');
+            }
+        }
+        
+        /**
+         * ナビゲーションの強制表示
+         */
+        function forceNavbarDisplay() {
+            const navbar = document.querySelector('.navbar');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            const navbarNav = document.querySelector('.navbar-nav');
+            
+            if (navbar) navbar.style.display = 'block';
+            if (navbarCollapse) navbarCollapse.style.display = 'flex';
+            if (navbarNav) navbarNav.style.display = 'flex';
+            
+            console.log('🔧 ナビゲーション強制表示完了');
+        }
         
         /**
          * アクティブナビゲーションの更新
@@ -220,94 +403,155 @@
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             
             navLinks.forEach(link => {
+                link.classList.remove('active');
                 const href = link.getAttribute('href');
-                if (href && currentPath.includes(href.replace('.html', ''))) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
+                
+                if (href) {
+                    // パス比較ロジック改善
+                    if (currentPath === '/' && href === '/') {
+                        link.classList.add('active');
+                    } else if (currentPath !== '/' && href !== '/' && currentPath.includes(href.replace('.html', ''))) {
+                        link.classList.add('active');
+                    }
                 }
             });
+            
+            console.log('🎯 アクティブナビゲーション更新完了');
         }
         
         /**
          * 接続ステータスの初期化
          */
         function initializeConnectionStatus() {
-            const statusContainer = document.getElementById('connectionStatus');
-            if (!statusContainer) return;
+            const statusIcon = document.getElementById('status-icon');
+            const statusText = document.getElementById('status-text');
             
-            // 初期状態: 接続試行中
-            statusContainer.innerHTML = `
-                <div class="toast show" role="alert" style="min-width: 250px;">
-                    <div class="toast-header bg-info text-white">
-                        <i class="fas fa-wifi me-2"></i>
-                        <strong class="me-auto">接続状態</strong>
-                    </div>
-                    <div class="toast-body">
-                        <div class="d-flex align-items-center">
-                            <div class="spinner-border spinner-border-sm me-2" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            Firebase接続中...
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // 5秒後に接続ステータスを確認
-            setTimeout(() => {
-                checkConnectionStatus();
-            }, 5000);
+            if (statusIcon && statusText) {
+                statusIcon.className = 'fas fa-circle text-warning';
+                statusText.textContent = '接続中...';
+                
+                // 5秒後に接続ステータスを確認
+                setTimeout(() => {
+                    checkConnectionStatus();
+                }, 5000);
+            }
         }
         
         /**
          * 接続ステータスの確認
          */
         function checkConnectionStatus() {
-            const statusContainer = document.getElementById('connectionStatus');
-            if (!statusContainer) return;
+            const statusIcon = document.getElementById('status-icon');
+            const statusText = document.getElementById('status-text');
+            
+            if (!statusIcon || !statusText) return;
             
             const isConnected = window.kraftDataManager && window.kraftDataManager.isConnected();
             
             if (isConnected) {
-                // 接続成功
-                statusContainer.innerHTML = `
-                    <div class="toast show" role="alert" style="min-width: 250px;">
-                        <div class="toast-header bg-success text-white">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <strong class="me-auto">接続成功</strong>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
-                        </div>
-                        <div class="toast-body">
-                            Firebase接続完了
-                        </div>
-                    </div>
-                `;
-                
-                // 3秒後に自動で閉じる
-                setTimeout(() => {
-                    const toast = statusContainer.querySelector('.toast');
-                    if (toast) {
-                        const bsToast = new bootstrap.Toast(toast);
-                        bsToast.hide();
-                    }
-                }, 3000);
+                statusIcon.className = 'fas fa-circle text-success';
+                statusText.textContent = 'オンライン';
             } else {
-                // 接続失敗 - モックデータ使用
-                statusContainer.innerHTML = `
-                    <div class="toast show" role="alert" style="min-width: 250px;">
-                        <div class="toast-header bg-warning text-dark">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <strong class="me-auto">オフラインモード</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                        </div>
-                        <div class="toast-body">
-                            デモデータで動作中
-                        </div>
+                statusIcon.className = 'fas fa-circle text-warning';
+                statusText.textContent = 'オフライン';
+            }
+            
+            // トースト通知表示
+            showConnectionToast(isConnected);
+        }
+        
+        /**
+         * 接続トースト通知
+         */
+        function showConnectionToast(isConnected) {
+            const toastContainer = document.getElementById('connectionToast');
+            if (!toastContainer) return;
+            
+            const toastType = isConnected ? 'success' : 'warning';
+            const toastMessage = isConnected ? 'Firebase接続完了' : 'オフラインモード - デモデータで動作中';
+            const toastIcon = isConnected ? 'fa-check-circle' : 'fa-exclamation-triangle';
+            
+            toastContainer.innerHTML = `
+                <div class="toast show" role="alert" style="min-width: 280px;">
+                    <div class="toast-header bg-${toastType} text-white">
+                        <i class="fas ${toastIcon} me-2"></i>
+                        <strong class="me-auto">接続状態</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
                     </div>
-                `;
+                    <div class="toast-body">
+                        ${toastMessage}
+                    </div>
+                </div>
+            `;
+            
+            // 自動で閉じる
+            setTimeout(() => {
+                const toast = toastContainer.querySelector('.toast');
+                if (toast) {
+                    const bsToast = new bootstrap.Toast(toast);
+                    bsToast.hide();
+                }
+            }, isConnected ? 3000 : 5000);
+        }
+        
+        /**
+         * データマネージャー初期化待機
+         */
+        async function waitForDataManager() {
+            let attempts = 0;
+            const maxAttempts = 50;
+            
+            while (attempts < maxAttempts) {
+                if (window.kraftDataManager && window.kraftDataManager.initialized) {
+                    console.log('✅ KRAFTデータマネージャー初期化完了');
+                    break;
+                }
+                
+                attempts++;
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            if (attempts >= maxAttempts) {
+                console.warn('⚠️ データマネージャー初期化タイムアウト - デモモードで継続');
             }
         }
+        
+        /**
+         * スムーススクロール
+         */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        /**
+         * ナビゲーションハイライト更新（スクロール時）
+         */
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id], div[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
