@@ -1,24 +1,9 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# ======================================
+# KRAFT コミュニティ _config.yml
+# 根本的CSS問題解決版
+# ======================================
 
-# KRAFT コミュニティ設定
+# サイト基本情報
 title: "KRAFT コミュニティ"
 email: admin@kraft-base.com
 description: >-
@@ -26,26 +11,53 @@ description: >-
   レベルシステム、投資シミュレーション、クエスト管理で
   メンバーの成長をサポートします。
 
-baseurl: "" # the subpath of your site, e.g. /blog
+# ===== 🚨 重要: GitHub Pages CSS 問題解決設定 =====
+# baseurl は空文字列に設定（カスタムドメイン使用時の必須設定）
+baseurl: ""
+# url は実際のカスタムドメインを設定
 url: "https://kraft-base.com"
-twitter_username: kraft_community
-github_username: kraft-community
 
-# Build settings
-theme: minima
+# ===== Jekyll 基本設定 =====
+# デフォルトレイアウト
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default"
+
+# マークダウン設定
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# ===== プラグイン設定 =====
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
+# GitHub Pages 安全プラグインのみ使用
+safe: true
+
+# ===== アセット処理設定 =====
+# Sass/SCSS 設定
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# アセットディレクトリ設定
+# GitHub Pages でアセットを正しく配信するための設定
+collections_dir: ""
+
+# ===== 除外設定 =====
 exclude:
   - .sass-cache/
   - .jekyll-cache/
@@ -60,8 +72,15 @@ exclude:
   - .env
   - firebase_credentials.json
   - README.md
+  - .gitignore
+  - package.json
+  - package-lock.json
 
-# KRAFT ウェブサイト設定
+# ===== ソーシャル設定 =====
+twitter_username: kraft_community
+github_username: kraft-community
+
+# ===== KRAFT 固有設定 =====
 kraft:
   name: "KRAFT コミュニティ"
   description: "Discord Bot と連携したコミュニティダッシュボード"
@@ -75,8 +94,10 @@ navigation:
     url: "/profiles.html"
   - name: "投資"
     url: "/investment.html"
+  - name: "ガイド"
+    url: "/guide.html"
 
-# Firebase設定（セキュリティのため環境変数を使用）
+# ===== Firebase設定（環境変数使用） =====
 firebase:
   api_key: "${FIREBASE_API_KEY}"
   auth_domain: "${FIREBASE_AUTH_DOMAIN}"
@@ -85,473 +106,70 @@ firebase:
   messaging_sender_id: "${FIREBASE_MESSAGING_SENDER_ID}"
   app_id: "${FIREBASE_APP_ID}"
 
-# パフォーマンス設定
-sass:
-  style: compressed
-
-# Google Analytics 4
+# ===== SEO・Analytics =====
 google_analytics: G-3J6CV2NZ9S
 
-# Netlify最適化
-netlify:
-  redirects: true
+# ===== GitHub Pages 最適化設定 =====
+# カスタムドメイン使用時の重要設定
+repository: kraft-community/kraft-base.com
 
-# セキュリティ設定
-safe: true
+# ===== パフォーマンス設定 =====
+# 圧縮設定
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: [html, head, body]
+  
+# 生成設定
+incremental: false
+profile: false
 
----
-# ==============================================
-# 2. _layouts/default.html の更新方法
-# ==============================================
-# 既存の _layouts/default.html を以下のコードで置き換え：
+# ===== 開発設定 =====
+# ローカル開発時の設定
+livereload: true
+open_url: false
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.kraft.name | default: site.title }}</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <!-- KRAFT スタイル -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    
-    <!-- SEO -->
-    <meta name="description" content="{{ site.kraft.description | default: site.description }}">
-    <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.kraft.name | default: site.title }}">
-    <meta property="og:description" content="{{ site.kraft.description | default: site.description }}">
-    <meta property="og:type" content="website">
-</head>
-<body>
-    <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-crown"></i> {{ site.kraft.name | default: site.title }}
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    {% for item in site.navigation %}
-                    <li class="nav-item">
-                        <a class="nav-link{% if page.url == item.url %} active{% endif %}" 
-                           href="{{ item.url | relative_url }}">
-                            {{ item.name }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <span class="navbar-text">
-                            <i class="fas fa-clock"></i>
-                            <span id="last-update-time">--:--</span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+# ===== 言語・地域設定 =====
+lang: ja
+timezone: Asia/Tokyo
 
-    <!-- メインコンテンツ -->
-    <main class="container-fluid py-4">
-        {{ content }}
-    </main>
+# ===== コンテンツ設定 =====
+paginate: 10
+paginate_path: "/page:num/"
 
-    <!-- フッター -->
-    <footer class="bg-dark text-light py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h6><i class="fas fa-crown"></i> {{ site.kraft.name | default: site.title }}</h6>
-                    <p class="mb-0">{{ site.kraft.description | default: site.description }}</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0">
-                        <small>
-                            Version {{ site.kraft.version | default: "1.0" }} | 
-                            Built with Jekyll & Discord Bot
-                        </small>
-                    </p>
-                    <p class="mb-0">
-                        <small class="text-muted">
-                            Last updated: <span id="footer-update-time">--</span>
-                        </small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+future: false
+unpublished: false
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- KRAFT Scripts -->
-    <script src="{{ '/assets/js/firebase-config.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/kraft-data-manager.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-    
-    <!-- 共通初期化 -->
-    <script>
-        // 最終更新時刻の表示
-        function updateTimestamp() {
-            const now = new Date().toLocaleTimeString('ja-JP', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            
-            const timeElements = document.querySelectorAll('#last-update-time, #footer-update-time');
-            timeElements.forEach(el => el.textContent = now);
-        }
-        
-        // 初期表示とインターバル設定
-        updateTimestamp();
-        setInterval(updateTimestamp, 60000); // 1分ごと更新
-        
-        // ページ読み込み完了ログ
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 KRAFT {{ site.kraft.version | default: "1.0" }} - ' + document.title + ' 読み込み完了');
-        });
-    </script>
-</body>
-</html>
+# ===== 🎯 CSS 問題解決のためのアセット設定 =====
+# アセットディレクトリの明示的指定
+assets:
+  sources:
+    - assets
+    - _sass
 
----
-# ==============================================
-# 3. index.html の更新方法
-# ==============================================
-# 既存の index.markdown を index.html にリネームし、以下の内容で置き換え：
+# ===== カスタムドメイン設定 =====
+# CNAME ファイルが自動生成される
+enforce_ssl: true
 
----
-layout: default
-title: ホーム
----
+# ===== Jekyll テーマ設定 =====
+# GitHub Pages でサポートされているテーマを使用
+# minima テーマを継承してカスタマイズ
+theme: minima
 
-<div class="hero-section bg-primary text-white py-5 mb-5 rounded">
-    <div class="container text-center">
-        <h1 class="display-4 mb-3">
-            <i class="fas fa-crown"></i> 
-            KRAFTコミュニティ
-        </h1>
-        <p class="lead">Discord Bot と連携したコミュニティダッシュボード</p>
-        <p class="mb-4">レベルシステム、クエスト、統計分析 - すべてがリアルタイムで同期</p>
-        
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <a href="/dashboard.html" class="btn btn-light btn-lg me-3">
-                    <i class="fas fa-chart-line"></i> ダッシュボード
-                </a>
-                <a href="/profiles.html" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-users"></i> メンバー
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+# ===== 🚨 GitHub Pages 特有の問題回避設定 =====
+# relative_url フィルターが正しく動作するための設定
+relative_links:
+  enabled: false
+  collections: false
 
-<div class="container">
-    <!-- 概要統計 -->
-    <div class="row g-4 mb-5">
-        <div class="col-md-3">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
-                    <h4 id="home-total-users">--</h4>
-                    <p class="card-text">アクティブメンバー</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
-                    <h4 id="home-avg-level">--</h4>
-                    <p class="card-text">平均レベル</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-tasks fa-3x text-warning mb-3"></i>
-                    <h4 id="home-total-quests">--</h4>
-                    <p class="card-text">クエスト達成数</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-coins fa-3x text-info mb-3"></i>
-                    <h4 id="home-kr-flow">--</h4>
-                    <p class="card-text">KR流通量</p>
-                </div>
-            </div>
-        </div>
-    </div>
+# Liquid の安全性設定
+liquid:
+  error_mode: warn
+  strict_filters: false
+  strict_variables: false
 
-    <!-- 機能紹介 -->
-    <div class="row g-4 mb-5">
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <i class="fas fa-chart-bar text-primary"></i> 
-                        リアルタイムダッシュボード
-                    </h5>
-                    <p class="card-text">
-                        Discord Botと完全同期したリアルタイム統計。
-                        レベル分布、アクティビティ、成長トレンドを視覚化。
-                    </p>
-                    <a href="/dashboard.html" class="btn btn-primary">
-                        ダッシュボードを見る
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <i class="fas fa-user-friends text-success"></i> 
-                        メンバープロフィール
-                    </h5>
-                    <p class="card-text">
-                        個人の成長記録、称号コレクション、クエスト実績を
-                        美しいプロフィールページで表示。
-                    </p>
-                    <a href="/profiles.html" class="btn btn-success">
-                        プロフィール一覧
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <i class="fas fa-trophy text-warning"></i> 
-                        レベル・クエストシステム
-                    </h5>
-                    <p class="card-text">
-                        経験値システム、称号獲得、クエスト進行状況を
-                        詳細に追跡・分析できます。
-                    </p>
-                    <a href="/levels.html" class="btn btn-warning">
-                        システム詳細
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 最新ハイライト -->
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header">
-                    <h5><i class="fas fa-fire"></i> 今週のハイライト</h5>
-                </div>
-                <div class="card-body">
-                    <div id="weekly-highlights">
-                        <div class="d-flex justify-content-center p-4">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">読み込み中...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5><i class="fas fa-crown"></i> トップメンバー</h5>
-                </div>
-                <div class="card-body">
-                    <div id="top-members-list">
-                        <div class="d-flex justify-content-center p-4">
-                            <div class="spinner-border text-success" role="status">
-                                <span class="visually-hidden">読み込み中...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// ホームページ初期化
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log("🏠 ホームページ初期化開始");
-    
-    // データマネージャー待機
-    while (!window.kraftDataManager || !window.kraftDataManager.initialized) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }
-    
-    await loadHomePageData();
-});
-
-// ホームページデータ読み込み
-async function loadHomePageData() {
-    try {
-        // 統計データ取得
-        const [stats, rankings, weeklyStats] = await Promise.all([
-            window.kraftDataManager.getServerStats(),
-            window.kraftDataManager.getRankings(),
-            window.kraftDataManager.getWeeklyStats()
-        ]);
-        
-        // 概要統計更新
-        document.getElementById('home-total-users').textContent = stats.active_users;
-        document.getElementById('home-avg-level').textContent = `Lv ${stats.average_level}`;
-        document.getElementById('home-total-quests').textContent = stats.total_quests.toLocaleString();
-        document.getElementById('home-kr-flow').textContent = `${Math.floor(stats.total_kr_circulation / 1000)}K KR`;
-        
-        // 週間ハイライト更新
-        updateWeeklyHighlights(weeklyStats);
-        
-        // トップメンバー更新
-        updateTopMembers(rankings.level_ranking.slice(0, 5));
-        
-        console.log("✅ ホームページデータ更新完了");
-        
-    } catch (error) {
-        console.error("❌ ホームページデータ読み込みエラー:", error);
-        showFallbackContent();
-    }
-}
-
-// 週間ハイライト更新
-function updateWeeklyHighlights(weeklyStats) {
-    const container = document.getElementById('weekly-highlights');
-    
-    if (!weeklyStats) {
-        container.innerHTML = `
-            <div class="text-muted text-center">
-                <i class="fas fa-info-circle"></i>
-                週間データを準備中です...
-            </div>
-        `;
-        return;
-    }
-    
-    container.innerHTML = `
-        <div class="row g-3">
-            <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 bg-light rounded">
-                    <i class="fas fa-level-up-alt fa-2x text-success me-3"></i>
-                    <div>
-                        <h6 class="mb-0">${weeklyStats.weekly_level_ups}件のレベルアップ</h6>
-                        <small class="text-muted">今週の成長実績</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 bg-light rounded">
-                    <i class="fas fa-check-circle fa-2x text-primary me-3"></i>
-                    <div>
-                        <h6 class="mb-0">${weeklyStats.weekly_quest_completions}件のクエスト達成</h6>
-                        <small class="text-muted">目標達成の成果</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 bg-light rounded">
-                    <i class="fas fa-user-plus fa-2x text-info me-3"></i>
-                    <div>
-                        <h6 class="mb-0">${weeklyStats.weekly_new_members}人の新メンバー</h6>
-                        <small class="text-muted">コミュニティ拡大</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 bg-light rounded">
-                    <i class="fas fa-arrow-${weeklyStats.activity_trend === 'up' ? 'up text-success' : weeklyStats.activity_trend === 'down' ? 'down text-danger' : 'right text-warning'} fa-2x me-3"></i>
-                    <div>
-                        <h6 class="mb-0">活動量${weeklyStats.activity_trend === 'up' ? '上昇' : weeklyStats.activity_trend === 'down' ? '下降' : '安定'}</h6>
-                        <small class="text-muted">先週比のトレンド</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// トップメンバー更新
-function updateTopMembers(topMembers) {
-    const container = document.getElementById('top-members-list');
-    
-    if (!topMembers || topMembers.length === 0) {
-        container.innerHTML = `
-            <div class="text-muted text-center">
-                <i class="fas fa-users"></i>
-                メンバーデータを準備中...
-            </div>
-        `;
-        return;
-    }
-    
-    container.innerHTML = topMembers.map((member, index) => {
-        const position = index + 1;
-        const medal = position <= 3 ? ['🥇', '🥈', '🥉'][position - 1] : `${position}.`;
-        
-        return `
-            <div class="d-flex align-items-center mb-2 p-2 rounded ${position <= 3 ? 'bg-light' : ''}">
-                <div class="me-2" style="width: 30px; text-align: center;">
-                    ${medal}
-                </div>
-                <div class="flex-grow-1">
-                    <div class="fw-bold">${member.display_name}</div>
-                    <small class="text-muted">レベル ${member.level}</small>
-                </div>
-                <div class="text-end">
-                    <small class="text-primary">${member.xp.toLocaleString()} XP</small>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// フォールバックコンテンツ
-function showFallbackContent() {
-    document.getElementById('home-total-users').textContent = '25';
-    document.getElementById('home-avg-level').textContent = 'Lv 18';
-    document.getElementById('home-total-quests').textContent = '156';
-    document.getElementById('home-kr-flow').textContent = '85K KR';
-    
-    document.getElementById('weekly-highlights').innerHTML = `
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle"></i>
-            データ同期中です。しばらくお待ちください。
-        </div>
-    `;
-    
-    document.getElementById('top-members-list').innerHTML = `
-        <div class="alert alert-info">
-            <i class="fas fa-users"></i>
-            ランキングデータを準備中です。
-        </div>
-    `;
-}
-</script>
+# ===== デバッグ設定（本番では無効） =====
+# 開発時のみ有効にする
+# verbose: true
+# incremental: true
