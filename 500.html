@@ -1,0 +1,340 @@
+---
+layout: default
+title: サーバーエラー
+permalink: /500.html
+---
+
+<div class="container-fluid">
+    <div class="row min-vh-100 align-items-center justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <!-- 500 メインセクション -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle fa-5x text-warning mb-3"></i>
+                    <h1 class="display-1 fw-bold text-warning">500</h1>
+                    <h2 class="h3 mb-3">サーバーエラーが発生しました</h2>
+                    <p class="lead text-muted">
+                        申し訳ございません。サーバーで問題が発生しています。<br>
+                        しばらく時間をおいてから再度お試しください。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 状況説明 -->
+            <div class="card shadow-sm mb-5">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        現在の状況
+                    </h5>
+                    <div class="alert alert-warning" role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-tools me-3"></i>
+                            <div>
+                                <strong>システムメンテナンス中の可能性があります</strong><br>
+                                <small>KRAFTウェブサイトのサーバーで一時的な問題が発生しています。</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6 class="mt-4 mb-3">影響を受ける可能性のある機能：</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-users text-muted me-2"></i>
+                            プロフィールデータの読み込み
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-chart-line text-muted me-2"></i>
+                            投資シミュレーションデータ
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-database text-muted me-2"></i>
+                            Firebase データベース接続
+                        </li>
+                        <li class="mb-2">
+                            <i class="fab fa-discord text-muted me-2"></i>
+                            Discord Bot連携機能
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 対処方法 -->
+            <div class="card shadow-sm mb-5">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        <i class="fas fa-wrench me-2"></i>
+                        お試しください
+                    </h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start p-3 bg-light rounded">
+                                <i class="fas fa-redo text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">ページを再読み込み</h6>
+                                    <small class="text-muted">F5キーまたは再読み込みボタンを押してください</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start p-3 bg-light rounded">
+                                <i class="fas fa-clock text-info me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">しばらく待つ</h6>
+                                    <small class="text-muted">5-10分後に再度アクセスしてください</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start p-3 bg-light rounded">
+                                <i class="fas fa-trash text-secondary me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">キャッシュクリア</h6>
+                                    <small class="text-muted">ブラウザのキャッシュを削除してください</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start p-3 bg-light rounded">
+                                <i class="fas fa-globe text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">別ブラウザで試す</h6>
+                                    <small class="text-muted">Chrome、Firefox、Safariなど</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アクションボタン -->
+            <div class="row g-3 mb-5">
+                <div class="col-md-4">
+                    <button class="btn btn-primary w-100 py-3" onclick="location.reload()">
+                        <i class="fas fa-redo fa-lg mb-2 d-block"></i>
+                        <div class="fw-bold">再読み込み</div>
+                        <small class="opacity-75">ページを更新</small>
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <a href="/" class="btn btn-success w-100 py-3">
+                        <i class="fas fa-home fa-lg mb-2 d-block"></i>
+                        <div class="fw-bold">ホームに戻る</div>
+                        <small class="opacity-75">トップページ</small>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-warning w-100 py-3" onclick="history.back()">
+                        <i class="fas fa-arrow-left fa-lg mb-2 d-block"></i>
+                        <div class="fw-bold">前のページ</div>
+                        <small class="opacity-75">戻る</small>
+                    </button>
+                </div>
+            </div>
+
+            <!-- サポート・問い合わせ -->
+            <div class="card border-warning shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <h5 class="card-title text-warning mb-3">
+                        <i class="fab fa-discord me-2"></i>
+                        問題が解決しない場合
+                    </h5>
+                    <p class="card-text mb-3">
+                        サーバーエラーが継続する場合は、KRAFTコミュニティのDiscordでお知らせください。<br>
+                        <strong>エラー発生時刻</strong>：<span id="error-timestamp"></span>
+                    </p>
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-auto">
+                            <a href="https://discord.gg/kraftcommunity" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="btn btn-warning">
+                                <i class="fab fa-discord me-2"></i>
+                                Discord で報告
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-outline-warning" onclick="copyErrorInfo()">
+                                <i class="fas fa-copy me-2"></i>
+                                エラー情報をコピー
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- システム状態 -->
+            <div class="mt-5 text-center">
+                <small class="text-muted">
+                    <i class="fas fa-server me-1"></i>
+                    システム状態: <span id="system-status" class="text-danger">エラー検出中</span> | 
+                    エラーID: <code id="error-id"></code>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // エラー発生時刻を表示
+    const now = new Date();
+    const timestamp = now.toLocaleString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    
+    const timestampElement = document.getElementById('error-timestamp');
+    if (timestampElement) {
+        timestampElement.textContent = timestamp;
+    }
+    
+    // ランダムなエラーIDを生成
+    const errorId = 'ERR-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const errorIdElement = document.getElementById('error-id');
+    if (errorIdElement) {
+        errorIdElement.textContent = errorId;
+    }
+    
+    // システム状態の更新（模擬）
+    setTimeout(function() {
+        const statusElement = document.getElementById('system-status');
+        if (statusElement) {
+            statusElement.textContent = '復旧作業中';
+            statusElement.className = 'text-warning';
+        }
+    }, 3000);
+    
+    // エラー情報をログに記録
+    console.error('500エラー発生:', {
+        timestamp: timestamp,
+        errorId: errorId,
+        userAgent: navigator.userAgent,
+        url: window.location.href
+    });
+});
+
+/**
+ * エラー情報をクリップボードにコピー
+ */
+function copyErrorInfo() {
+    const errorId = document.getElementById('error-id').textContent;
+    const timestamp = document.getElementById('error-timestamp').textContent;
+    const currentUrl = window.location.href;
+    
+    const errorInfo = `
+KRAFT サーバーエラー報告
+========================
+エラーID: ${errorId}
+発生時刻: ${timestamp}
+URL: ${currentUrl}
+ブラウザ: ${navigator.userAgent}
+    `.trim();
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(errorInfo).then(function() {
+            alert('エラー情報をクリップボードにコピーしました。\nDiscordに貼り付けて報告してください。');
+        });
+    } else {
+        // フォールバック: テキストエリアを使用
+        const textArea = document.createElement('textarea');
+        textArea.value = errorInfo;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('エラー情報をクリップボードにコピーしました。');
+    }
+}
+
+/**
+ * 自動復旧チェック
+ */
+function checkServerStatus() {
+    fetch('/')
+        .then(response => {
+            if (response.ok) {
+                const statusElement = document.getElementById('system-status');
+                if (statusElement) {
+                    statusElement.textContent = '復旧完了';
+                    statusElement.className = 'text-success';
+                }
+                
+                // 復旧を検出した場合、ホームページにリダイレクト
+                setTimeout(function() {
+                    if (confirm('サーバーが復旧しました。ホームページに移動しますか？')) {
+                        window.location.href = '/';
+                    }
+                }, 1000);
+            }
+        })
+        .catch(error => {
+            console.log('まだサーバーエラー中:', error);
+        });
+}
+
+// 30秒ごとに復旧チェック
+setInterval(checkServerStatus, 30000);
+</script>
+
+<style>
+/* 500ページ専用スタイル */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* パルス効果（エラー状態表示） */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.fa-exclamation-triangle {
+    animation: pulse 2s infinite;
+}
+
+/* 状態バッジ */
+#system-status {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* コードスタイル */
+code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    padding: 2px 4px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 3px;
+}
+</style>
