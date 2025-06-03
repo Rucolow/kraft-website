@@ -89,6 +89,9 @@ firebase:
 sass:
   style: compressed
 
+# Google Analytics 4
+google_analytics: G-3J6CV2NZ9S
+
 # Netlify最適化
 netlify:
   redirects: true
