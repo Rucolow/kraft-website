@@ -1,6 +1,388 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
+title: ホーム
+description: KRAFT コミュニティ - Discord Bot と連携したコミュニティダッシュボード
 ---
+
+<div class="hero-section bg-gradient-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="fas fa-rocket me-3"></i>
+                    KRAFT コミュニティ
+                </h1>
+                <p class="lead mb-4">
+                    Discord Bot と連携したコミュニティダッシュボード<br>
+                    レベルシステム、投資シミュレーション、クエスト管理で<br class="d-none d-lg-block">
+                    メンバーの成長をサポートします
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/profiles.html" class="btn btn-light btn-lg">
+                        <i class="fas fa-users me-2"></i>プロフィール
+                    </a>
+                    <a href="/investment.html" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-chart-line me-2"></i>投資
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="hero-stats mt-4 mt-lg-0">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card bg-white bg-opacity-20 rounded p-3">
+                                <h3 class="h4 mb-1" id="hero-users">25</h3>
+                                <small>アクティブメンバー</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card bg-white bg-opacity-20 rounded p-3">
+                                <h3 class="h4 mb-1" id="hero-level">Lv18</h3>
+                                <small>平均レベル</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- 主要統計 -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="stat-icon bg-primary bg-opacity-10 rounded-circle p-3 mx-auto mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-users fa-2x text-primary"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" id="stats-users">25</h4>
+                    <p class="text-muted mb-0">アクティブメンバー</p>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>+3 今週
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="stat-icon bg-success bg-opacity-10 rounded-circle p-3 mx-auto mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-chart-line fa-2x text-success"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" id="stats-level">Lv 18</h4>
+                    <p class="text-muted mb-0">平均レベル</p>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>+2 今月
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="stat-icon bg-warning bg-opacity-10 rounded-circle p-3 mx-auto mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-tasks fa-2x text-warning"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" id="stats-quests">156</h4>
+                    <p class="text-muted mb-0">クエスト達成</p>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>+12 今週
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="stat-icon bg-info bg-opacity-10 rounded-circle p-3 mx-auto mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-coins fa-2x text-info"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" id="stats-kr">85K</h4>
+                    <p class="text-muted mb-0">KR流通量</p>
+                    <small class="text-info">
+                        <i class="fas fa-chart-area me-1"></i>安定
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 機能紹介 -->
+    <div class="row g-4 mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-star me-2"></i>
+                主要機能
+            </h2>
+        </div>
+        <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-primary bg-opacity-10 rounded p-2 me-3">
+                            <i class="fas fa-chart-bar text-primary fa-lg"></i>
+                        </div>
+                        <h5 class="card-title mb-0">リアルタイムダッシュボード</h5>
+                    </div>
+                    <p class="card-text">
+                        Discord Botと完全同期したリアルタイム統計。
+                        レベル分布、アクティビティ、成長トレンドを視覚化。
+                    </p>
+                    <a href="/profiles.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-right me-1"></i>プロフィール一覧
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-success bg-opacity-10 rounded p-2 me-3">
+                            <i class="fas fa-chart-line text-success fa-lg"></i>
+                        </div>
+                        <h5 class="card-title mb-0">投資シミュレーション</h5>
+                    </div>
+                    <p class="card-text">
+                        リアルタイム株価システム、ポートフォリオ管理、
+                        ニュース連動の本格的な投資体験。
+                    </p>
+                    <a href="/investment.html" class="btn btn-success">
+                        <i class="fas fa-arrow-right me-1"></i>投資ページ
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-warning bg-opacity-10 rounded p-2 me-3">
+                            <i class="fas fa-trophy text-warning fa-lg"></i>
+                        </div>
+                        <h5 class="card-title mb-0">レベル・クエストシステム</h5>
+                    </div>
+                    <p class="card-text">
+                        経験値システム、称号獲得、クエスト進行状況を
+                        詳細に追跡・分析。
+                    </p>
+                    <a href="/profiles.html" class="btn btn-warning">
+                        <i class="fas fa-arrow-right me-1"></i>ランキング
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最新ハイライト -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent border-0 py-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-fire text-danger me-2"></i>
+                        今週のハイライト
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="weekly-highlights">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="highlight-item p-3 bg-light rounded">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-level-up-alt fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">12件のレベルアップ</h6>
+                                            <small class="text-muted">今週の成長実績</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="highlight-item p-3 bg-light rounded">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-check-circle fa-2x text-primary me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">28件のクエスト達成</h6>
+                                            <small class="text-muted">目標達成の成果</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="highlight-item p-3 bg-light rounded">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-plus fa-2x text-info me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">3人の新メンバー</h6>
+                                            <small class="text-muted">コミュニティ拡大</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="highlight-item p-3 bg-light rounded">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-arrow-up fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">活動量上昇</h6>
+                                            <small class="text-muted">先週比15%増加</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent border-0 py-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-crown text-warning me-2"></i>
+                        トップメンバー
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="top-members-list">
+                        <div class="member-item d-flex align-items-center mb-3 p-2 rounded bg-light">
+                            <div class="rank-badge bg-warning text-dark rounded-circle me-3" style="width: 30px; height: 30px; line-height: 30px; text-align: center; font-weight: bold;">
+                                1
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="fw-bold">KRAFTマスター</div>
+                                <small class="text-muted">レベル 25</small>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-primary">15,420 XP</small>
+                            </div>
+                        </div>
+                        <div class="member-item d-flex align-items-center mb-3 p-2 rounded">
+                            <div class="rank-badge bg-secondary text-white rounded-circle me-3" style="width: 30px; height: 30px; line-height: 30px; text-align: center; font-weight: bold;">
+                                2
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="fw-bold">投資エキスパート</div>
+                                <small class="text-muted">レベル 22</small>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-primary">12,850 XP</small>
+                            </div>
+                        </div>
+                        <div class="member-item d-flex align-items-center mb-3 p-2 rounded">
+                            <div class="rank-badge bg-info text-white rounded-circle me-3" style="width: 30px; height: 30px; line-height: 30px; text-align: center; font-weight: bold;">
+                                3
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="fw-bold">クエストハンター</div>
+                                <small class="text-muted">レベル 20</small>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-primary">11,240 XP</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="/profiles.html" class="btn btn-outline-primary btn-sm">
+                            全ランキングを見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA セクション -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white border-0 shadow">
+                <div class="card-body text-center p-5">
+                    <h3 class="mb-3">
+                        <i class="fab fa-discord me-2"></i>
+                        KRAFTコミュニティに参加しよう
+                    </h3>
+                    <p class="mb-4">
+                        Discord Botと連携した革新的なコミュニティ体験。<br>
+                        レベルアップ、投資シミュレーション、そして仲間との成長を楽しもう！
+                    </p>
+                    <a href="https://discord.gg/kraftcommunity" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn btn-light btn-lg">
+                        <i class="fab fa-discord me-2"></i>
+                        Discord参加
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* ヒーローセクション */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.hero-stats .stat-card {
+    transition: transform 0.3s ease;
+}
+
+.hero-stats .stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* 統計カード */
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* ハイライトアイテム */
+.highlight-item {
+    transition: background-color 0.3s ease;
+}
+
+.highlight-item:hover {
+    background-color: rgba(0,123,255,0.1) !important;
+}
+
+/* ランクバッジ */
+.rank-badge {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* メンバーアイテム */
+.member-item {
+    transition: background-color 0.3s ease;
+}
+
+.member-item:hover {
+    background-color: rgba(0,123,255,0.1) !important;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-stats {
+        margin-top: 2rem;
+    }
+}
+</style>
