@@ -1,0 +1,762 @@
+---
+layout: default
+title: ユーザーガイド
+description: KRAFT コミュニティの使い方・Discord Botコマンド・機能説明
+---
+
+<div class="container">
+    <!-- ヘッダーセクション -->
+    <div class="hero-section text-center py-5 mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="fas fa-book-open me-3"></i>
+            KRAFT ユーザーガイド
+        </h1>
+        <p class="lead">
+            Discord Bot と連携したコミュニティダッシュボードの使い方を<br>
+            わかりやすく説明します
+        </p>
+    </div>
+
+    <!-- 目次 -->
+    <div class="card mb-5">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                目次
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#getting-started" class="text-decoration-none">
+                                <i class="fas fa-play me-2"></i>はじめに
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#discord-commands" class="text-decoration-none">
+                                <i class="fab fa-discord me-2"></i>Discord Botコマンド
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#level-system" class="text-decoration-none">
+                                <i class="fas fa-trophy me-2"></i>レベルシステム
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#investment" class="text-decoration-none">
+                                <i class="fas fa-chart-line me-2"></i>投資シミュレーション
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#website-features" class="text-decoration-none">
+                                <i class="fas fa-globe me-2"></i>ウェブサイト機能
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#quest-system" class="text-decoration-none">
+                                <i class="fas fa-tasks me-2"></i>クエストシステム
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#troubleshooting" class="text-decoration-none">
+                                <i class="fas fa-question-circle me-2"></i>トラブルシューティング
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#support" class="text-decoration-none">
+                                <i class="fas fa-life-ring me-2"></i>サポート
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- はじめに -->
+    <section id="getting-started" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-play me-2"></i>
+            はじめに
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">KRAFT コミュニティとは？</h5>
+                        <p class="card-text">
+                            KRAFT コミュニティは、Discord Bot と連携したユニークなコミュニティプラットフォームです。
+                            メンバーの成長をゲーミフィケーション要素で楽しく支援し、学習と投資体験を提供します。
+                        </p>
+                        
+                        <h6 class="mt-4">主な特徴：</h6>
+                        <ul>
+                            <li><strong>レベルシステム</strong>：活動に応じてXPを獲得し、レベルアップ</li>
+                            <li><strong>投資シミュレーション</strong>：リアルタイム株価で安全な投資体験</li>
+                            <li><strong>クエスト機能</strong>：目標達成で称号とKRを獲得</li>
+                            <li><strong>リアルタイム同期</strong>：Discord Bot とウェブサイトが完全連携</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <i class="fas fa-rocket fa-3x mb-3"></i>
+                        <h5>今すぐ始めよう！</h5>
+                        <p class="small">
+                            Discordサーバーに参加して<br>
+                            KRAFTの世界を体験しよう
+                        </p>
+                        <a href="https://discord.gg/kraftcommunity" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="btn btn-light">
+                            <i class="fab fa-discord me-2"></i>
+                            Discord参加
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discord Botコマンド -->
+    <section id="discord-commands" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fab fa-discord me-2"></i>
+            Discord Botコマンド
+        </h2>
+        
+        <div class="row g-4">
+            <!-- 基本コマンド -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-user me-2"></i>
+                            基本コマンド
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="command-item mb-3">
+                            <code>/profile</code>
+                            <p class="mt-2 mb-0">あなたのプロフィール情報を表示</p>
+                            <small class="text-muted">レベル、XP、称号、KR残高を確認</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/ranking</code>
+                            <p class="mt-2 mb-0">レベルランキングを表示</p>
+                            <small class="text-muted">上位メンバーの成長状況を確認</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/stats</code>
+                            <p class="mt-2 mb-0">サーバー統計を表示</p>
+                            <small class="text-muted">コミュニティ全体の活動状況</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 投資コマンド -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>
+                            投資コマンド
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="command-item mb-3">
+                            <code>/invest buy [企業] [株数]</code>
+                            <p class="mt-2 mb-0">株式を購入</p>
+                            <small class="text-muted">例: /invest buy トヨタ 10</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/invest sell [企業] [株数]</code>
+                            <p class="mt-2 mb-0">株式を売却</p>
+                            <small class="text-muted">例: /invest sell トヨタ 5</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/portfolio</code>
+                            <p class="mt-2 mb-0">ポートフォリオを確認</p>
+                            <small class="text-muted">保有株式と損益状況を表示</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/market</code>
+                            <p class="mt-2 mb-0">市場情報を表示</p>
+                            <small class="text-muted">現在の株価と市場ニュース</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- クエスト・その他 -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-dark">
+                        <h6 class="mb-0">
+                            <i class="fas fa-tasks me-2"></i>
+                            クエスト・その他
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="command-item mb-3">
+                            <code>/quest</code>
+                            <p class="mt-2 mb-0">利用可能なクエストを表示</p>
+                            <small class="text-muted">達成可能な目標と報酬を確認</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/donate [団体]</code>
+                            <p class="mt-2 mb-0">寄付を実行</p>
+                            <small class="text-muted">KRを使って社会貢献活動</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/help</code>
+                            <p class="mt-2 mb-0">ヘルプ情報を表示</p>
+                            <small class="text-muted">すべてのコマンドの使い方</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 管理者コマンド -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-cog me-2"></i>
+                            管理者コマンド
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="command-item mb-3">
+                            <code>/admin news</code>
+                            <p class="mt-2 mb-0">市場ニュースを生成</p>
+                            <small class="text-muted">株価に影響するニュースを作成</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/admin xp [ユーザー] [量]</code>
+                            <p class="mt-2 mb-0">XPを付与</p>
+                            <small class="text-muted">メンバーの成長をサポート</small>
+                        </div>
+                        
+                        <div class="command-item mb-3">
+                            <code>/admin kr [ユーザー] [量]</code>
+                            <p class="mt-2 mb-0">KRを付与</p>
+                            <small class="text-muted">通貨を直接付与</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- レベルシステム -->
+    <section id="level-system" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-trophy me-2"></i>
+            レベルシステム
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">XP（経験値）の獲得方法</h5>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>活動</th>
+                                        <th>獲得XP</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>メッセージ投稿</td>
+                                        <td>5-15 XP</td>
+                                        <td>Discordでの会話参加</td>
+                                    </tr>
+                                    <tr>
+                                        <td>投資取引</td>
+                                        <td>20-50 XP</td>
+                                        <td>株式売買の実行</td>
+                                    </tr>
+                                    <tr>
+                                        <td>クエスト達成</td>
+                                        <td>100-500 XP</td>
+                                        <td>特定目標の完了</td>
+                                    </tr>
+                                    <tr>
+                                        <td>寄付実行</td>
+                                        <td>30-100 XP</td>
+                                        <td>社会貢献活動</td>
+                                    </tr>
+                                    <tr>
+                                        <td>管理者ボーナス</td>
+                                        <td>任意</td>
+                                        <td>特別な貢献への報酬</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h6 class="mt-4">レベルアップの仕組み</h6>
+                        <p>
+                            レベルアップに必要なXPは、現在のレベルによって決まります：<br>
+                            <code>必要XP = レベル × 100</code>
+                        </p>
+                        <p class="small text-muted">
+                            例：レベル10→11には1,000XP、レベル20→21には2,000XPが必要
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card bg-warning text-dark">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-crown me-2"></i>
+                            称号システム
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>レベル5</strong>：初心者
+                        </div>
+                        <div class="mb-3">
+                            <strong>レベル10</strong>：コントリビューター
+                        </div>
+                        <div class="mb-3">
+                            <strong>レベル15</strong>：エキスパート
+                        </div>
+                        <div class="mb-3">
+                            <strong>レベル20</strong>：マスター
+                        </div>
+                        <div class="mb-3">
+                            <strong>レベル25</strong>：レジェンド
+                        </div>
+                        <p class="small mb-0">
+                            称号はプロフィールと<br>
+                            ランキングに表示されます
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 投資シミュレーション -->
+    <section id="investment" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-chart-line me-2"></i>
+            投資シミュレーション
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">投資の基本</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6>利用可能企業</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-car me-2 text-primary"></i>
+                                <strong>トヨタ</strong> - 自動車業界
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-microchip me-2 text-success"></i>
+                                <strong>ソニー</strong> - テクノロジー
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-gamepad me-2 text-warning"></i>
+                                <strong>任天堂</strong> - ゲーム業界
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-store me-2 text-info"></i>
+                                <strong>楽天</strong> - Eコマース
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-mobile-alt me-2 text-danger"></i>
+                                <strong>ソフトバンク</strong> - 通信
+                            </li>
+                        </ul>
+                        
+                        <h6 class="mt-4">投資のコツ</h6>
+                        <ul class="small">
+                            <li>市場ニュースで株価変動を予測</li>
+                            <li>分散投資でリスクを軽減</li>
+                            <li>長期保有で安定した成長を狙う</li>
+                            <li>損切りのタイミングを見極める</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">KR（KRAFT通貨）について</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6>KRの用途</h6>
+                        <ul>
+                            <li><strong>投資資金</strong>：株式購入に使用</li>
+                            <li><strong>寄付活動</strong>：社会貢献でXP獲得</li>
+                            <li><strong>将来の機能</strong>：アイテム購入など</li>
+                        </ul>
+                        
+                        <h6 class="mt-4">KRの獲得方法</h6>
+                        <ul>
+                            <li>初回参加ボーナス：10,000 KR</li>
+                            <li>レベルアップ報酬：1,000 KR / レベル</li>
+                            <li>クエスト達成報酬：500-2,000 KR</li>
+                            <li>投資の利益：売却時の利益</li>
+                            <li>管理者からの特別報酬</li>
+                        </ul>
+                        
+                        <div class="alert alert-info mt-3">
+                            <small>
+                                <i class="fas fa-info-circle me-2"></i>
+                                KRは架空の通貨です。実際の金銭価値はありません。
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h6>ウェブサイトでの投資管理</h6>
+                <p>
+                    <a href="/investment.html" class="text-decoration-none">
+                        <i class="fas fa-external-link-alt me-2"></i>
+                        投資ページ
+                    </a>
+                    では、以下の機能が利用できます：
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>リアルタイム株価チャート</li>
+                            <li>ポートフォリオ可視化</li>
+                            <li>市場ニュース一覧</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>投資履歴の確認</li>
+                            <li>損益レポート</li>
+                            <li>市場統計データ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ウェブサイト機能 -->
+    <section id="website-features" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-globe me-2"></i>
+            ウェブサイト機能
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                        <h5>ホームページ</h5>
+                        <p class="card-text">
+                            コミュニティ統計、週間ハイライト、
+                            トップメンバーランキングを確認
+                        </p>
+                        <a href="/" class="btn btn-primary">ホームを見る</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x text-success mb-3"></i>
+                        <h5>プロフィール</h5>
+                        <p class="card-text">
+                            メンバーの成長記録、称号、
+                            レベルランキングを表示
+                        </p>
+                        <a href="/profiles.html" class="btn btn-success">プロフィールを見る</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                        <h5>投資</h5>
+                        <p class="card-text">
+                            株価チャート、ポートフォリオ、
+                            投資シミュレーション
+                        </p>
+                        <a href="/investment.html" class="btn btn-warning">投資を見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- クエストシステム -->
+    <section id="quest-system" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-tasks me-2"></i>
+            クエストシステム
+        </h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <p>
+                    クエストシステムでは、様々な目標を達成することでXPとKRを獲得できます。
+                    <code>/quest</code>コマンドで利用可能なクエストを確認しましょう。
+                </p>
+                
+                <h6>クエストの種類</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>デイリークエスト</strong>：毎日更新される簡単な目標</li>
+                            <li><strong>ウィークリークエスト</strong>：週単位の中期目標</li>
+                            <li><strong>マンスリークエスト</strong>：月単位の長期目標</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>特別クエスト</strong>：イベント限定の特別目標</li>
+                            <li><strong>達成クエスト</strong>：一度限りの記録達成</li>
+                            <li><strong>継続クエスト</strong>：長期間の継続活動</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- トラブルシューティング -->
+    <section id="troubleshooting" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-question-circle me-2"></i>
+            トラブルシューティング
+        </h2>
+        
+        <div class="accordion" id="troubleshootingAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        Botコマンドが反応しない
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>コマンドが正しく入力されているか確認してください</li>
+                            <li>スラッシュコマンド（/）で始まっているか確認</li>
+                            <li>Botがオンラインかどうか確認</li>
+                            <li>しばらく待ってから再実行してみてください</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        ウェブサイトのデータが表示されない
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>ページを再読み込み（F5）してください</li>
+                            <li>インターネット接続を確認してください</li>
+                            <li>ブラウザのキャッシュをクリアしてください</li>
+                            <li>別のブラウザで試してみてください</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                        投資取引でエラーが発生する
+                    </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>KR残高が十分か確認してください</li>
+                            <li>企業名が正確か確認してください</li>
+                            <li>株数が正の整数か確認してください</li>
+                            <li>売却時は保有株数を超えていないか確認</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- サポート -->
+    <section id="support" class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">
+            <i class="fas fa-life-ring me-2"></i>
+            サポート
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">お困りの時は</h5>
+                        <p>
+                            このガイドで解決しない問題や質問がある場合は、
+                            KRAFTコミュニティのDiscordサーバーでお気軽にお声がけください。
+                        </p>
+                        
+                        <h6>サポートチャンネル</h6>
+                        <ul>
+                            <li><strong>#general</strong> - 一般的な質問・雑談</li>
+                            <li><strong>#help</strong> - 技術的なサポート</li>
+                            <li><strong>#feedback</strong> - 要望・改善提案</li>
+                            <li><strong>#bug-report</strong> - バグ報告</li>
+                        </ul>
+                        
+                        <h6>連絡時のお願い</h6>
+                        <ul>
+                            <li>問題の詳細をできるだけ具体的に</li>
+                            <li>エラーメッセージがあれば含めてください</li>
+                            <li>使用デバイス・ブラウザ情報があると助かります</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <i class="fab fa-discord fa-4x mb-3"></i>
+                        <h5>Discord参加</h5>
+                        <p>
+                            コミュニティに参加して<br>
+                            サポートを受けよう
+                        </p>
+                        <a href="https://discord.gg/kraftcommunity" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="btn btn-light">
+                            今すぐ参加
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h6>更新情報</h6>
+                        <p class="small">
+                            このガイドは定期的に更新されます。
+                            新機能や変更があった場合は
+                            Discordでお知らせします。
+                        </p>
+                        <p class="small text-muted mb-0">
+                            最終更新: 2025年6月3日
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+/* ガイドページ専用スタイル */
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+}
+
+.command-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.command-item:last-child {
+    border-bottom: none;
+}
+
+.command-item code {
+    background-color: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.accordion-button {
+    font-weight: 500;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* スクロール時のスムーズな移動 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 目次リンクのスタイル */
+.card-body a {
+    transition: color 0.3s ease;
+}
+
+.card-body a:hover {
+    color: #0056b3 !important;
+}
+
+/* セクション間の余白調整 */
+section {
+    scroll-margin-top: 100px;
+}
+</style>
