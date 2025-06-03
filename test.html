@@ -1,0 +1,80 @@
+---
+layout: default
+title: Library Test
+---
+
+<div class="container mt-4">
+  <h1>External Libraries Test</h1>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Chart.js Test</h3>
+      <div class="chart-container">
+        <canvas id="testChart"></canvas>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <h3>Firebase Test</h3>
+      <div id="firebase-status" class="alert alert-info">
+        Testing Firebase connection...
+      </div>
+      <button id="test-firebase" class="btn btn-primary">Test Firebase Connection</button>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-12">
+      <h3>UI Components Test</h3>
+      
+      <!-- Level Progress Bar Test -->
+      <h5>Level Progress Bar</h5>
+      <div class="level-progress mb-3">
+        <div class="progress-fill" style="width: 65%;"></div>
+      </div>
+      <p>Level 15 - 1,250 XP / 2,000 XP (65%)</p>
+      
+      <!-- Title Badges Test -->
+      <h5>Title Badges</h5>
+      <div class="mb-3">
+        <span class="title-badge level-10">新人冒険者</span>
+        <span class="title-badge level-50">達人</span>
+        <span class="title-badge level-100">生きる伝説</span>
+      </div>
+      
+      <!-- User Card Test -->
+      <h5>User Card</h5>
+      <div class="user-card">
+        <h6>TestUser</h6>
+        <p>Level 25 | 5,420 XP | 称号: 3個</p>
+        <div class="level-progress">
+          <div class="progress-fill" style="width: 40%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Firebase test button
+document.getElementById('test-firebase').addEventListener('click', async function() {
+  const statusDiv = document.getElementById('firebase-status');
+  statusDiv.textContent = 'Testing...';
+  statusDiv.className = 'alert alert-info';
+  
+  try {
+    // Note: This will fail until we add real Firebase config
+    const result = await testFirebaseConnection();
+    if (result) {
+      statusDiv.textContent = 'Firebase connection successful!';
+      statusDiv.className = 'alert alert-success';
+    } else {
+      statusDiv.textContent = 'Firebase connection failed - Configuration needed';
+      statusDiv.className = 'alert alert-warning';
+    }
+  } catch (error) {
+    statusDiv.textContent = 'Firebase connection error: ' + error.message;
+    statusDiv.className = 'alert alert-danger';
+  }
+});
+</script>

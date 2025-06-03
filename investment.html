@@ -1,0 +1,593 @@
+---
+layout: default
+title: "投資 - KRAFT"
+description: "KRAFTコミュニティの投資システム - 10社の企業情報、株価チャート、AIニュースを確認"
+---
+
+<!-- Chart.js CDN削除済み -->
+
+<!-- 投資ページメインコンテンツ -->
+<div class="investment-page">
+  <!-- ページヘッダー -->
+  <section class="page-header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-3">💼 KRAFT投資システム</h1>
+          <p class="lead text-muted">10社の企業情報とAI生成ニュースで投資体験を学ぼう</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <div class="market-status">
+            <div class="badge bg-success fs-6 mb-2">🔴 市場オープン</div>
+            <div class="market-time small text-muted">JST 15:30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 市場サマリー -->
+  <section class="market-summary py-4">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="total-market-cap">425,750,000 KR</h3>
+              <p class="stat-label">総時価総額</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-content">
+              <h3 class="stat-value text-success" id="rising-stocks">7 / 10</h3>
+              <p class="stat-label">上昇銘柄</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="active-investors">142</h3>
+              <p class="stat-label">アクティブ投資家</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="daily-volume">2.4M KR</h3>
+              <p class="stat-label">日次取引高</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <!-- 企業情報セクション (左カラム) -->
+      <div class="col-lg-8">
+        <!-- 業界タブ -->
+        <div class="industry-tabs mb-4">
+          <ul class="nav nav-pills justify-content-center" id="industry-tabs">
+            <li class="nav-item">
+              <button class="nav-link active" data-industry="all">
+                🏢 全業界
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-industry="tech">
+                🤖 テック
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-industry="entertainment">
+                🎮 エンタメ
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-industry="industrial">
+                🏭 産業
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-industry="healthcare">
+                🏥 ヘルスケア
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-industry="finance">
+                🏦 金融
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 企業カードグリッド -->
+        <div class="companies-grid" id="companies-grid">
+          <!-- 企業カードはJavaScriptで動的生成 -->
+          <div class="loading-placeholder">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">企業データ読み込み中...</span>
+            </div>
+            <p class="mt-3">企業データを読み込んでいます...</p>
+          </div>
+        </div>
+
+        <!-- 株価チャートセクション -->
+        <section class="stock-chart-section mt-5">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h4 class="mb-0">📈 株価チャート</h4>
+              <div class="chart-controls">
+                <div class="btn-group btn-group-sm" role="group">
+                  <button type="button" class="btn btn-outline-primary active" data-period="1d">1日</button>
+                  <button type="button" class="btn btn-outline-primary" data-period="1w">1週</button>
+                  <button type="button" class="btn btn-outline-primary" data-period="1m">1ヶ月</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart.js Canvas から プレースホルダーDiv に変更 -->
+              <div id="stockChart" style="height: 300px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #6c757d; border: 2px dashed #dee2e6;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                <h5 style="margin-bottom: 0.5rem; color: #495057;">株価チャート</h5>
+                <p style="margin: 0; text-align: center; max-width: 300px;">主要5社の株価推移をリアルタイムで表示<br><small class="text-muted">※ 開発完了後に表示されます</small></p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- サイドバー (右カラム) -->
+      <div class="col-lg-4">
+        <!-- 投資ニュース -->
+        <section class="investment-news">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h4 class="mb-0">📰 投資ニュース</h4>
+              <span class="badge bg-info">AI生成</span>
+            </div>
+            <div class="card-body news-container" id="news-container">
+              <div class="loading-placeholder">
+                <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                <span class="ms-2">ニュース読み込み中...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 市場ランキング -->
+        <section class="market-rankings mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="mb-0">🏆 市場ランキング</h4>
+            </div>
+            <div class="card-body">
+              <!-- 上昇ランキング -->
+              <div class="ranking-section mb-4">
+                <h6 class="text-success mb-3">📈 上昇率トップ5</h6>
+                <div id="top-gainers" class="ranking-list">
+                  <!-- JavaScriptで動的生成 -->
+                </div>
+              </div>
+              
+              <!-- 下落ランキング -->
+              <div class="ranking-section">
+                <h6 class="text-danger mb-3">📉 下落率トップ5</h6>
+                <div id="top-losers" class="ranking-list">
+                  <!-- JavaScriptで動的生成 -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 投資統計 -->
+        <section class="investment-stats mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="mb-0">📊 投資統計</h4>
+            </div>
+            <div class="card-body">
+              <div class="stat-item">
+                <span class="stat-label">平均配当利回り</span>
+                <span class="stat-value">2.1%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">市場ボラティリティ</span>
+                <span class="stat-value">15.3%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">投資家参加率</span>
+                <span class="stat-value">68.5%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 企業詳細モーダル -->
+<div class="modal fade" id="companyModal" tabindex="-1" aria-labelledby="companyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="companyModalLabel">企業詳細</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="companyModalBody">
+        <!-- 企業詳細情報はJavaScriptで動的生成 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 投資専用CSS -->
+<style>
+/* 投資ページ専用スタイル */
+.investment-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.page-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+}
+
+.market-status {
+  text-align: center;
+}
+
+.market-time {
+  font-size: 0.9rem;
+}
+
+/* 統計カード */
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  min-width: 50px;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #212529;
+}
+
+.stat-label {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* 業界タブ */
+.industry-tabs .nav-pills .nav-link {
+  border-radius: 25px;
+  margin: 0 0.25rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.industry-tabs .nav-pills .nav-link:not(.active) {
+  background: white;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.industry-tabs .nav-pills .nav-link:not(.active):hover {
+  background: #f8f9fa;
+  color: #007bff;
+}
+
+/* 企業カードグリッド */
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.company-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.company-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #007bff;
+}
+
+.company-card:hover::before {
+  background: #007bff;
+}
+
+/* 業界別カラー */
+.company-card.tech::before { background: #3b82f6; }
+.company-card.entertainment::before { background: #f59e0b; }
+.company-card.industrial::before { background: #10b981; }
+.company-card.healthcare::before { background: #ef4444; }
+.company-card.finance::before { background: #8b5cf6; }
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.company-info h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.company-info .company-ticker {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.company-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.metric {
+  text-align: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.metric-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+}
+
+.price-display {
+  text-align: right;
+}
+
+.current-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.price-change {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.price-change.positive { color: #10b981; }
+.price-change.negative { color: #ef4444; }
+
+/* ニュースセクション */
+.news-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.news-item {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #dee2e6;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.news-item:hover {
+  background: #e9ecef;
+}
+
+.news-item.positive { border-left-color: #10b981; }
+.news-item.negative { border-left-color: #ef4444; }
+.news-item.neutral { border-left-color: #6c757d; }
+
+.news-headline {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #212529;
+}
+
+.news-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.news-impact {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.news-impact.high { background: #fef3cd; color: #856404; }
+.news-impact.medium { background: #d1ecf1; color: #0c5460; }
+.news-impact.low { background: #f8d7da; color: #721c24; }
+
+/* ランキング */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.ranking-item:hover {
+  background: #e9ecef;
+}
+
+.ranking-company {
+  font-weight: 500;
+  color: #212529;
+}
+
+.ranking-change {
+  font-weight: bold;
+}
+
+.ranking-change.positive { color: #10b981; }
+.ranking-change.negative { color: #ef4444; }
+
+/* 投資統計 */
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-item .stat-label {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.stat-item .stat-value {
+  font-weight: 600;
+  color: #212529;
+}
+
+/* ローディング状態 */
+.loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .companies-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .industry-tabs .nav-pills {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .industry-tabs .nav-pills .nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .company-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .market-summary .row {
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header {
+    padding: 2rem 0;
+  }
+  
+  .page-header .display-4 {
+    font-size: 2rem;
+  }
+  
+  .companies-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+</style>
+
+<!-- 投資ページ専用JavaScript -->
+<script src="{{ '/assets/js/investment.js' | relative_url }}"></script>

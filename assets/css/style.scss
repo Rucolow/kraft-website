@@ -1,0 +1,107 @@
+---
+---
+
+@import "minima";
+
+// KRAFT Website Custom Styles
+
+// Variables
+$kraft-primary: #5865F2;
+$kraft-secondary: #57F287;
+$kraft-danger: #ED4245;
+$kraft-warning: #FEE75C;
+$kraft-info: #5865F2;
+
+// Global styles
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Navigation
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.bg-primary {
+  background-color: $kraft-primary !important;
+}
+
+// Level progress bar
+.level-progress {
+  height: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $kraft-secondary 0%, $kraft-primary 100%);
+    transition: width 0.5s ease-in-out;
+  }
+}
+
+// Title badges
+.title-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 500;
+  margin: 2px;
+  
+  &.level-10 { 
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    color: #333;
+  }
+  
+  &.level-50 { 
+    background: linear-gradient(45deg, #9f7aea, #d53f8c);
+    color: white;
+  }
+  
+  &.level-100 { 
+    background: linear-gradient(45deg, #f56565, #ed8936);
+    color: white;
+  }
+}
+
+// Chart containers
+.chart-container {
+  position: relative;
+  height: 300px;
+  margin: 20px 0;
+}
+
+// User cards
+.user-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  transition: box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+}
+
+// Footer
+.site-footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #dee2e6;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .chart-container {
+    height: 250px;
+  }
+  
+  .user-card {
+    margin: 5px 0;
+    padding: 10px;
+  }
+}

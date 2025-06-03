@@ -1,0 +1,558 @@
+---
+layout: default
+title: KRAFTダッシュボード
+---
+
+<div class="dashboard-container">
+    <!-- ヘッダー -->
+    <div class="dashboard-header">
+        <h1>🏆 KRAFT コミュニティダッシュボード</h1>
+        <p class="lead">リアルタイムでコミュニティの成長を追跡</p>
+        <div id="last-updated" class="text-muted">最終更新: 読み込み中...</div>
+    </div>
+
+    <!-- エラー表示エリア -->
+    <div id="error-messages"></div>
+
+    <!-- ローディング表示 -->
+    <div id="loading-spinner" class="text-center p-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">データ読み込み中...</span>
+        </div>
+        <p>KRAFTデータを取得中...</p>
+    </div>
+
+    <!-- メイン統計カード -->
+    <div id="stats-cards" class="row g-3 mb-4" style="display: none;">
+        <div class="col-md-3">
+            <div class="card kraft-stat-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                    <h3 id="total-users" class="card-title">--</h3>
+                    <p class="card-text">総メンバー数</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card kraft-stat-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-2x text-success mb-2"></i>
+                    <h3 id="average-level" class="card-title">--</h3>
+                    <p class="card-text">平均レベル</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card kraft-stat-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-tasks fa-2x text-warning mb-2"></i>
+                    <h3 id="total-quests" class="card-title">--</h3>
+                    <p class="card-text">総クエスト達成</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card kraft-stat-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-coins fa-2x text-info mb-2"></i>
+                    <h3 id="kr-circulation" class="card-title">--</h3>
+                    <p class="card-text">KR流通総額</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- チャートセクション -->
+    <div id="charts-section" class="row g-4" style="display: none;">
+        <!-- レベル分布チャート -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-bar"></i> レベル分布</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="levelDistributionChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 成長トレンドチャート -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line"></i> 成長トレンド</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="growthTrendChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- アクティビティ概要 -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-fire"></i> アクティビティ概要</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="activityChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- クエスト統計 -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-trophy"></i> クエスト統計</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h4 id="quest-completion-rate" class="text-success">--</h4>
+                            <p class="mb-0">達成率</p>
+                        </div>
+                        <div class="col-6">
+                            <h4 id="active-questers" class="text-primary">--</h4>
+                            <p class="mb-0">アクティブ</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="recent-achievements" class="mt-3">
+                        <h6>最近の成果</h6>
+                        <div id="achievements-list">
+                            <!-- 動的に生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ランキングセクション -->
+    <div id="rankings-section" class="row g-4 mt-4" style="display: none;">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-crown"></i> レベルランキング TOP 5</h5>
+                </div>
+                <div class="card-body">
+                    <div id="level-ranking-list">
+                        <!-- 動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-medal"></i> クエストランキング TOP 5</h5>
+                </div>
+                <div class="card-body">
+                    <div id="quest-ranking-list">
+                        <!-- 動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 更新ボタン -->
+    <div class="text-center mt-4">
+        <button id="refresh-data-btn" class="btn btn-primary btn-lg">
+            <i class="fas fa-sync-alt"></i> データを更新
+        </button>
+    </div>
+</div>
+
+<style>
+.kraft-stat-card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.2s ease-in-out;
+}
+
+.kraft-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    color: #0d6efd;
+    margin-bottom: 0.5rem;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.25rem;
+    background: #f8f9fa;
+    border-radius: 0.375rem;
+}
+
+.ranking-position {
+    font-weight: bold;
+    width: 2rem;
+    text-align: center;
+}
+
+.ranking-name {
+    flex-grow: 1;
+    margin-left: 0.5rem;
+}
+
+.ranking-value {
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+#loading-spinner {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+
+<script>
+// グローバルチャート変数の初期化
+window.kraftCharts = {
+    levelDistChart: null,
+    growthChart: null,
+    activityChart: null
+};
+
+// ダッシュボード初期化
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log("🚀 ダッシュボード初期化開始");
+    
+    // Chart.js確認
+    if (typeof Chart === 'undefined') {
+        showError("Chart.jsが読み込まれていません。ページを再読み込みしてください。");
+        return;
+    }
+    
+    // データマネージャーが初期化されるまで待機
+    let attempts = 0;
+    while ((!window.kraftDataManager || !window.kraftDataManager.initialized) && attempts < 30) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        attempts++;
+    }
+    
+    if (!window.kraftDataManager) {
+        showError("データマネージャーの初期化に失敗しました。");
+        return;
+    }
+    
+    // 初回データ読み込み
+    await loadDashboard();
+    
+    // 更新ボタンのイベントリスナー
+    document.getElementById('refresh-data-btn').addEventListener('click', loadDashboard);
+    
+    // 5分ごとの自動更新
+    setInterval(loadDashboard, 5 * 60 * 1000);
+});
+
+// ダッシュボードデータ読み込み
+async function loadDashboard() {
+    try {
+        showLoading(true);
+        clearErrors();
+        
+        console.log("📊 ダッシュボードデータ取得中...");
+        
+        // 並列でデータ取得
+        const [serverStats, rankings] = await Promise.all([
+            window.kraftDataManager.getServerStats(),
+            window.kraftDataManager.getRankings()
+        ]);
+        
+        console.log("📊 データ取得完了:", { serverStats, rankings });
+        
+        // 統計カード更新
+        updateStatsCards(serverStats);
+        
+        // チャート更新
+        updateCharts(serverStats);
+        
+        // ランキング更新
+        updateRankings(rankings);
+        
+        // 最終更新時刻
+        document.getElementById('last-updated').textContent = 
+            `最終更新: ${new Date().toLocaleString('ja-JP')}`;
+        
+        showLoading(false);
+        
+        console.log("✅ ダッシュボード更新完了");
+        
+    } catch (error) {
+        console.error("❌ ダッシュボード読み込みエラー:", error);
+        showError("データの取得に失敗しました。しばらく後にお試しください。");
+        showLoading(false);
+    }
+}
+
+// ローディング表示切り替え
+function showLoading(show) {
+    document.getElementById('loading-spinner').style.display = show ? 'flex' : 'none';
+    document.getElementById('stats-cards').style.display = show ? 'none' : 'flex';
+    document.getElementById('charts-section').style.display = show ? 'none' : 'block';
+    document.getElementById('rankings-section').style.display = show ? 'none' : 'flex';
+}
+
+// 統計カード更新
+function updateStatsCards(stats) {
+    try {
+        document.getElementById('total-users').textContent = stats.total_users || 0;
+        document.getElementById('average-level').textContent = `Lv ${stats.average_level || 0}`;
+        document.getElementById('total-quests').textContent = (stats.total_quests || 0).toLocaleString();
+        document.getElementById('kr-circulation').textContent = `${Math.floor((stats.total_kr_circulation || 0) / 1000)}K KR`;
+    } catch (error) {
+        console.error("❌ 統計カード更新エラー:", error);
+    }
+}
+
+// チャート更新
+function updateCharts(stats) {
+    try {
+        // Chart.js利用可能確認
+        if (typeof Chart === 'undefined') {
+            console.error("❌ Chart.js が利用できません");
+            return;
+        }
+        
+        // レベル分布チャート
+        updateLevelDistributionChart(stats.level_distribution);
+        
+        // 成長トレンドチャート（モック）
+        updateGrowthTrendChart();
+        
+        // アクティビティチャート
+        updateActivityChart(stats);
+        
+        // クエスト統計
+        document.getElementById('quest-completion-rate').textContent = `${stats.quest_completion_rate || 0}%`;
+        document.getElementById('active-questers').textContent = stats.active_users || 0;
+        
+    } catch (error) {
+        console.error("❌ チャート更新エラー:", error);
+    }
+}
+
+// レベル分布チャート
+function updateLevelDistributionChart(distribution) {
+    try {
+        const canvas = document.getElementById('levelDistributionChart');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // 既存のチャートを安全に破棄
+        if (window.kraftCharts.levelDistChart && typeof window.kraftCharts.levelDistChart.destroy === 'function') {
+            window.kraftCharts.levelDistChart.destroy();
+        }
+        
+        window.kraftCharts.levelDistChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(distribution || {}),
+                datasets: [{
+                    label: 'ユーザー数',
+                    data: Object.values(distribution || {}),
+                    backgroundColor: [
+                        '#99aab5', '#7289da', '#43b581', 
+                        '#faa61a', '#f04747', '#9f7aea'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+        
+    } catch (error) {
+        console.error("❌ レベル分布チャートエラー:", error);
+    }
+}
+
+// 成長トレンドチャート（モック）
+function updateGrowthTrendChart() {
+    try {
+        const canvas = document.getElementById('growthTrendChart');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        if (window.kraftCharts.growthChart && typeof window.kraftCharts.growthChart.destroy === 'function') {
+            window.kraftCharts.growthChart.destroy();
+        }
+        
+        // 過去7日間のモックデータ
+        const labels = [];
+        const data = [];
+        for (let i = 6; i >= 0; i--) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            labels.push(date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' }));
+            data.push(Math.floor(Math.random() * 1000) + 2000);
+        }
+        
+        window.kraftCharts.growthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '累計XP',
+                    data: data,
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: false }
+                }
+            }
+        });
+        
+    } catch (error) {
+        console.error("❌ 成長トレンドチャートエラー:", error);
+    }
+}
+
+// アクティビティチャート
+function updateActivityChart(stats) {
+    try {
+        const canvas = document.getElementById('activityChart');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        if (window.kraftCharts.activityChart && typeof window.kraftCharts.activityChart.destroy === 'function') {
+            window.kraftCharts.activityChart.destroy();
+        }
+        
+        const activeUsers = stats.active_users || 0;
+        const totalUsers = stats.total_users || 0;
+        const inactiveUsers = Math.max(0, totalUsers - activeUsers);
+        
+        window.kraftCharts.activityChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['アクティブユーザー', '非アクティブユーザー'],
+                datasets: [{
+                    data: [activeUsers, inactiveUsers],
+                    backgroundColor: ['#28a745', '#dc3545'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+        
+    } catch (error) {
+        console.error("❌ アクティビティチャートエラー:", error);
+    }
+}
+
+// ランキング更新
+function updateRankings(rankings) {
+    try {
+        updateRankingList('level-ranking-list', rankings.level_ranking || [], 'level', 'Lv');
+        updateRankingList('quest-ranking-list', rankings.quest_ranking || [], 'completed_quests', '達成');
+    } catch (error) {
+        console.error("❌ ランキング更新エラー:", error);
+    }
+}
+
+// ランキングリスト生成
+function updateRankingList(containerId, ranking, valueKey, valueSuffix) {
+    try {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!ranking || ranking.length === 0) {
+            container.innerHTML = '<div class="text-muted text-center">データがありません</div>';
+            return;
+        }
+        
+        ranking.slice(0, 5).forEach((user, index) => {
+            const item = document.createElement('div');
+            item.className = 'ranking-item';
+            
+            const position = index + 1;
+            const medal = position <= 3 ? ['🥇', '🥈', '🥉'][position - 1] : position;
+            
+            item.innerHTML = `
+                <div class="ranking-position">${medal}</div>
+                <div class="ranking-name">${user.display_name || 'Unknown'}</div>
+                <div class="ranking-value">${user[valueKey] || 0} ${valueSuffix}</div>
+            `;
+            
+            container.appendChild(item);
+        });
+        
+    } catch (error) {
+        console.error("❌ ランキングリスト生成エラー:", error);
+    }
+}
+
+// エラー表示
+function showError(message) {
+    const errorContainer = document.getElementById('error-messages');
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+    alertDiv.innerHTML = `
+        <i class="fas fa-exclamation-triangle"></i> ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    errorContainer.appendChild(alertDiv);
+    
+    // 5秒後に自動削除
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            alertDiv.remove();
+        }
+    }, 5000);
+}
+
+// エラークリア
+function clearErrors() {
+    const errorContainer = document.getElementById('error-messages');
+    errorContainer.innerHTML = '';
+}
+</script>

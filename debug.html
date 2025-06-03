@@ -1,0 +1,250 @@
+---
+layout: default
+title: KRAFT診断
+---
+
+<div class="container">
+    <h1>🔧 KRAFT システム診断</h1>
+    <p class="lead">現在のデータ接続状況を確認します</p>
+    
+    <div class="row g-4">
+        <!-- 診断ボタン -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>システム診断を実行</h5>
+                    <button id="run-diagnosis" class="btn btn-primary btn-lg">
+                        🔍 診断開始
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 結果表示エリア -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>📊 診断結果</h5>
+                </div>
+                <div class="card-body">
+                    <div id="diagnosis-results">
+                        <p class="text-muted">診断ボタンをクリックしてください</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- データ切り替えボタン -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>🔄 データモード切り替え</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button id="switch-real-data" class="btn btn-success">
+                            📡 実データモードに切り替え
+                        </button>
+                        <button id="switch-mock-data" class="btn btn-warning">
+                            🎭 モックデータモードに切り替え
+                        </button>
+                        <button id="clear-cache" class="btn btn-info">
+                            🗑️ キャッシュクリア
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- サンプルデータ表示 -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>👤 現在のデータサンプル</h5>
+                </div>
+                <div class="card-body">
+                    <div id="data-sample">
+                        <p class="text-muted">診断実行後に表示されます</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const diagnosisBtn = document.getElementById('run-diagnosis');
+    const resultsDiv = document.getElementById('diagnosis-results');
+    const sampleDiv = document.getElementById('data-sample');
+    
+    // 診断実行
+    diagnosisBtn.addEventListener('click', async function() {
+        resultsDiv.innerHTML = '<div class="spinner-border text-primary" role="status"></div> 診断中...';
+        sampleDiv.innerHTML = '<div class="spinner-border text-secondary" role="status"></div> データ取得中...';
+        
+        try {
+            await runCompleteDiagnosis();
+        } catch (error) {
+            resultsDiv.innerHTML = `<div class="alert alert-danger">診断エラー: ${error.message}</div>`;
+        }
+    });
+    
+    // 実データモード切り替え
+    document.getElementById('switch-real-data').addEventListener('click', function() {
+        window.FIREBASE_MOCK_MODE = false;
+        window.FIREBASE_CONNECTION_ERROR = false;
+        alert('実データモードに切り替えました。ページを再読み込みしてください。');
+        window.location.reload();
+    });
+    
+    // モックデータモード切り替え
+    document.getElementById('switch-mock-data').addEventListener('click', function() {
+        window.FIREBASE_MOCK_MODE = true;
+        alert('モックデータモードに切り替えました。ページを再読み込みしてください。');
+        window.location.reload();
+    });
+    
+    // キャッシュクリア
+    document.getElementById('clear-cache').addEventListener('click', function() {
+        if (window.kraftDataManager) {
+            window.kraftDataManager.clearCache();
+            alert('キャッシュをクリアしました。');
+        }
+    });
+});
+
+async function runCompleteDiagnosis() {
+    const results = [];
+    
+    // 1. システム状態確認
+    results.push('<h6>🔧 システム状態</h6>');
+    
+    const status = window.kraftDataManager ? window.kraftDataManager.getConnectionStatus() : null;
+    if (status) {
+        results.push(`<ul>`);
+        results.push(`<li>初期化状態: <span class="badge bg-${status.initialized ? 'success' : 'danger'}">${status.initialized ? '成功' : '失敗'}</span></li>`);
+        results.push(`<li>モックモード: <span class="badge bg-${status.mock_mode ? 'warning' : 'success'}">${status.mock_mode ? 'ON' : 'OFF'}</span></li>`);
+        results.push(`<li>接続エラー: <span class="badge bg-${status.connection_error ? 'danger' : 'success'}">${status.connection_error ? 'あり' : 'なし'}</span></li>`);
+        results.push(`<li>Firebase利用可能: <span class="badge bg-${status.firebase_available ? 'success' : 'danger'}">${status.firebase_available ? 'はい' : 'いいえ'}</span></li>`);
+        results.push(`<li>Firestore利用可能: <span class="badge bg-${status.firestore_available ? 'success' : 'danger'}">${status.firestore_available ? 'はい' : 'いいえ'}</span></li>`);
+        results.push(`<li>キャッシュエントリ数: ${status.cache_entries}</li>`);
+        results.push(`</ul>`);
+    } else {
+        results.push('<div class="alert alert-danger">データマネージャーが初期化されていません</div>');
+    }
+    
+    // 2. Firebase接続テスト
+    results.push('<h6>🔥 Firebase接続テスト</h6>');
+    
+    if (window.db) {
+        try {
+            const snapshot = await window.db.collection('users').limit(3).get();
+            results.push(`<div class="alert alert-success">✅ Firestore接続成功: ${snapshot.size}件のユーザーデータ確認</div>`);
+            
+            // データサンプル表示
+            const samples = [];
+            snapshot.forEach((doc, index) => {
+                // Firebase v9対応
+                const data = doc.data ? doc.data() : doc.to_dict();
+                samples.push(`
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h6>ユーザー${index + 1} (ID: ${doc.id.slice(-4)})</h6>
+                            <ul class="mb-0">
+                                <li>レベル: ${data.level || 'なし'}</li>
+                                <li>経験値: ${data.xp || 'なし'}</li>
+                                <li>残高: ${data.balance || 'なし'} KR</li>
+                                <li>メッセージ数: ${data.total_messages || 'なし'}</li>
+                                <li>クエスト達成: ${data.completed_quests || 'なし'}</li>
+                                <li>称号: ${data.titles ? data.titles.join(', ') : 'なし'}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `);
+            });
+            
+            document.getElementById('data-sample').innerHTML = samples.join('');
+            
+        } catch (error) {
+            results.push(`<div class="alert alert-danger">❌ Firestore接続エラー: ${error.message}</div>`);
+            
+            if (error.message.includes('permission-denied')) {
+                results.push(`
+                    <div class="alert alert-info">
+                        <strong>解決方法:</strong><br>
+                        Firebase Console → Firestore → Rules で読み取り権限を許可してください
+                    </div>
+                `);
+            }
+        }
+    } else {
+        results.push('<div class="alert alert-warning">Firestoreが初期化されていません</div>');
+    }
+    
+    // 3. データ取得テスト
+    results.push('<h6>📊 データ取得テスト</h6>');
+    
+    try {
+        const profiles = await window.kraftDataManager.getUserProfiles();
+        results.push(`<div class="alert alert-success">✅ プロフィール取得成功: ${profiles.length}件</div>`);
+        
+        const stats = await window.kraftDataManager.getServerStats();
+        results.push(`<div class="alert alert-success">✅ サーバー統計取得成功: 平均レベル ${stats.average_level}</div>`);
+        
+        // 現在のデータソース確認
+        if (window.FIREBASE_MOCK_MODE || window.FIREBASE_CONNECTION_ERROR) {
+            results.push('<div class="alert alert-warning">⚠️ 現在モックデータを使用中</div>');
+        } else {
+            results.push('<div class="alert alert-success">✅ 実データを使用中</div>');
+        }
+        
+    } catch (error) {
+        results.push(`<div class="alert alert-danger">❌ データ取得エラー: ${error.message}</div>`);
+    }
+    
+    // 4. 推奨アクション
+    results.push('<h6>💡 推奨アクション</h6>');
+    
+    if (status && status.mock_mode) {
+        results.push(`
+            <div class="alert alert-info">
+                <strong>現在モックデータモードです。</strong><br>
+                実データを表示するには「実データモードに切り替え」ボタンをクリックしてください。
+            </div>
+        `);
+    } else if (status && !status.firestore_available) {
+        results.push(`
+            <div class="alert alert-warning">
+                <strong>Firestore接続に問題があります。</strong><br>
+                Firebase設定とRulesを確認してください。
+            </div>
+        `);
+    } else {
+        results.push(`
+            <div class="alert alert-success">
+                <strong>システムは正常に動作しています！</strong><br>
+                ダッシュボードで実データが表示されているはずです。
+            </div>
+        `);
+    }
+    
+    document.getElementById('diagnosis-results').innerHTML = results.join('');
+}
+</script>
+
+<style>
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+</style>
